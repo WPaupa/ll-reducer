@@ -18,13 +18,13 @@ replace m x (TBang n) = TBang (replace m x n)
 replace m x (TApp n1 n2) = TApp (replace m x n1) (replace m x n2)
 
 stepReduce :: Term -> IO Term
-stepReduce (red@(TApp (TLambda x m) n)) = do
+stepReduce (red@(TApp (TLambda x n) m)) = do
     putStrLn $ "Found beta-redex: " ++ printTree red
     let result = replace m x n
     putStrLn $ "Reduced to: " ++ printTree result
     return result
 
-stepReduce (red@(TApp (TLamBang x m) (TBang n))) = do
+stepReduce (red@(TApp (TLamBang x n) (TBang m))) = do
     putStrLn $ "Found bang-redex: " ++ printTree red
     let result = replace m x n
     putStrLn $ "Reduced to: " ++ printTree result
