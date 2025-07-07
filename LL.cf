@@ -1,0 +1,18 @@
+entrypoints Program ;
+
+Program. Program ::= [ Def ] ;
+separator Def ";;" ;
+
+Def. Def ::= Ident "=" Term ;
+
+PIdent. Pattern ::= Ident ;
+PMatch. Pattern ::= "[" [ Pattern ] "]" ;
+separator Pattern "," ;
+
+TLambda. Term ::= "\\" Pattern "." Term ;
+TLamBang. Term ::= "\\!" Pattern "." Term ;
+TVar. Term1 ::= Pattern ;
+TBang. Term1 ::= "!" Term1 ;
+TApp. Term1 ::= Term Term1 ;
+
+coercions Term 1 ;
