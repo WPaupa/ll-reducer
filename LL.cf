@@ -5,13 +5,9 @@ separator Def ";;" ;
 
 Def. Def ::= Ident "=" Term ;
 
-PIdent. Pattern ::= Ident ;
-PMatch. Pattern ::= "[" [ Pattern ] "]" ;
-separator Pattern "," ;
-
-TLambda. Term ::= "\\" Pattern "." Term ;
-TLamBang. Term ::= "\\!" Pattern "." Term ;
-TVar. Term1 ::= Pattern ;
+TLambda. Term ::= "\\" Ident "." Term ;
+TLamBang. Term ::= "\\!" Ident "." Term ;
+TVar. Term1 ::= Ident ;
 TBang. Term1 ::= "!" Term1 ;
 TApp. Term1 ::= Term Term1 ;
 

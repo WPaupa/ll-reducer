@@ -26,9 +26,8 @@ The reserved words used in LL are the following:
 There are no reserved words in LL.
 
 The symbols used in LL are the following:
-  | ;; | = | [ | ]
-  | , | \ | . | \!
-  | ! | ( | ) |
+  | ;; | = | \ | .
+  | \! | ! | ( | )
 
 ===Comments===
 There are no single-line comments in the grammar.There are no multiple-line comments in the grammar.
@@ -44,15 +43,10 @@ All other symbols are terminals.
   |  |  **|**  | //Def//
   |  |  **|**  | //Def// ``;;`` //[Def]//
   | //Def// | -> | //Ident// ``=`` //Term//
-  | //Pattern// | -> | //Ident//
-  |  |  **|**  | ``[`` //[Pattern]// ``]``
-  | //[Pattern]// | -> | **eps**
-  |  |  **|**  | //Pattern//
-  |  |  **|**  | //Pattern// ``,`` //[Pattern]//
-  | //Term// | -> | ``\`` //Pattern// ``.`` //Term//
-  |  |  **|**  | ``\!`` //Pattern// ``.`` //Term//
+  | //Term// | -> | ``\`` //Ident// ``.`` //Term//
+  |  |  **|**  | ``\!`` //Ident// ``.`` //Term//
   |  |  **|**  | //Term1//
-  | //Term1// | -> | //Pattern//
+  | //Term1// | -> | //Ident//
   |  |  **|**  | ``!`` //Term1//
   |  |  **|**  | //Term// //Term1//
   |  |  **|**  | ``(`` //Term// ``)``

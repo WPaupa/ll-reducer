@@ -23,18 +23,15 @@ import LexLL
 %monad { Err } { (>>=) } { return }
 %tokentype {Token}
 %token
-  '!'     { PT _ (TS _ 1)  }
-  '('     { PT _ (TS _ 2)  }
-  ')'     { PT _ (TS _ 3)  }
-  ','     { PT _ (TS _ 4)  }
-  '.'     { PT _ (TS _ 5)  }
-  ';;'    { PT _ (TS _ 6)  }
-  '='     { PT _ (TS _ 7)  }
-  '['     { PT _ (TS _ 8)  }
-  '\\'    { PT _ (TS _ 9)  }
-  '\\!'   { PT _ (TS _ 10) }
-  ']'     { PT _ (TS _ 11) }
-  L_Ident { PT _ (TV $$)   }
+  '!'     { PT _ (TS _ 1) }
+  '('     { PT _ (TS _ 2) }
+  ')'     { PT _ (TS _ 3) }
+  '.'     { PT _ (TS _ 4) }
+  ';;'    { PT _ (TS _ 5) }
+  '='     { PT _ (TS _ 6) }
+  '\\'    { PT _ (TS _ 7) }
+  '\\!'   { PT _ (TS _ 8) }
+  L_Ident { PT _ (TV $$)  }
 
 %%
 
@@ -53,26 +50,15 @@ ListDef
 Def :: { AbsLL.Def }
 Def : Ident '=' Term { AbsLL.Def $1 $3 }
 
-Pattern :: { AbsLL.Pattern }
-Pattern
-  : Ident { AbsLL.PIdent $1 }
-  | '[' ListPattern ']' { AbsLL.PMatch $2 }
-
-ListPattern :: { [AbsLL.Pattern] }
-ListPattern
-  : {- empty -} { [] }
-  | Pattern { (:[]) $1 }
-  | Pattern ',' ListPattern { (:) $1 $3 }
-
 Term :: { AbsLL.Term }
 Term
-  : '\\' Pattern '.' Term { AbsLL.TLambda $2 $4 }
-  | '\\!' Pattern '.' Term { AbsLL.TLamBang $2 $4 }
+  : '\\' Ident '.' Term { AbsLL.TLambda $2 $4 }
+  | '\\!' Ident '.' Term { AbsLL.TLamBang $2 $4 }
   | Term1 { $1 }
 
 Term1 :: { AbsLL.Term }
 Term1
-  : Pattern { AbsLL.TVar $1 }
+  : Ident { AbsLL.TVar $1 }
   | '!' Term1 { AbsLL.TBang $2 }
   | Term Term1 { AbsLL.TApp $1 $2 }
   | '(' Term ')' { $2 }

@@ -27,15 +27,10 @@ transDef :: AbsLL.Def -> Result
 transDef x = case x of
   AbsLL.Def ident term -> failure x
 
-transPattern :: AbsLL.Pattern -> Result
-transPattern x = case x of
-  AbsLL.PIdent ident -> failure x
-  AbsLL.PMatch patterns -> failure x
-
 transTerm :: AbsLL.Term -> Result
 transTerm x = case x of
-  AbsLL.TLambda pattern_ term -> failure x
-  AbsLL.TLamBang pattern_ term -> failure x
-  AbsLL.TVar pattern_ -> failure x
+  AbsLL.TLambda ident term -> failure x
+  AbsLL.TLamBang ident term -> failure x
+  AbsLL.TVar ident -> failure x
   AbsLL.TBang term -> failure x
   AbsLL.TApp term1 term2 -> failure x

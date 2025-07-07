@@ -16,13 +16,10 @@ data Program = Program [Def]
 data Def = Def Ident Term
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
-data Pattern = PIdent Ident | PMatch [Pattern]
-  deriving (C.Eq, C.Ord, C.Show, C.Read)
-
 data Term
-    = TLambda Pattern Term
-    | TLamBang Pattern Term
-    | TVar Pattern
+    = TLambda Ident Term
+    | TLamBang Ident Term
+    | TVar Ident
     | TBang Term
     | TApp Term Term
   deriving (C.Eq, C.Ord, C.Show, C.Read)

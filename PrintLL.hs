@@ -153,20 +153,10 @@ instance Print AbsLL.Def where
   prt i = \case
     AbsLL.Def id_ term -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), prt 0 term])
 
-instance Print AbsLL.Pattern where
-  prt i = \case
-    AbsLL.PIdent id_ -> prPrec i 0 (concatD [prt 0 id_])
-    AbsLL.PMatch patterns -> prPrec i 0 (concatD [doc (showString "["), prt 0 patterns, doc (showString "]")])
-
-instance Print [AbsLL.Pattern] where
-  prt _ [] = concatD []
-  prt _ [x] = concatD [prt 0 x]
-  prt _ (x:xs) = concatD [prt 0 x, doc (showString ","), prt 0 xs]
-
 instance Print AbsLL.Term where
   prt i = \case
-    AbsLL.TLambda pattern_ term -> prPrec i 0 (concatD [doc (showString "\\"), prt 0 pattern_, doc (showString "."), prt 0 term])
-    AbsLL.TLamBang pattern_ term -> prPrec i 0 (concatD [doc (showString "\\!"), prt 0 pattern_, doc (showString "."), prt 0 term])
-    AbsLL.TVar pattern_ -> prPrec i 1 (concatD [prt 0 pattern_])
+    AbsLL.TLambda id_ term -> prPrec i 0 (concatD [doc (showString "\\"), prt 0 id_, doc (showString "."), prt 0 term])
+    AbsLL.TLamBang id_ term -> prPrec i 0 (concatD [doc (showString "\\!"), prt 0 id_, doc (showString "."), prt 0 term])
+    AbsLL.TVar id_ -> prPrec i 1 (concatD [prt 0 id_])
     AbsLL.TBang term -> prPrec i 1 (concatD [doc (showString "!"), prt 1 term])
     AbsLL.TApp term1 term2 -> prPrec i 1 (concatD [prt 0 term1, prt 1 term2])
