@@ -8,7 +8,7 @@
 module ParLL
   ( happyError
   , myLexer
-  , pProgram
+  , pDef
   ) where
 
 import Prelude
@@ -18,7 +18,7 @@ import LexLL
 
 }
 
-%name pProgram Program
+%name pDef Def
 -- no lexer declaration
 %monad { Err } { (>>=) } { return }
 %tokentype {Token}
@@ -27,25 +27,15 @@ import LexLL
   '('     { PT _ (TS _ 2) }
   ')'     { PT _ (TS _ 3) }
   '.'     { PT _ (TS _ 4) }
-  ';;'    { PT _ (TS _ 5) }
-  '='     { PT _ (TS _ 6) }
-  '\\'    { PT _ (TS _ 7) }
-  '\\!'   { PT _ (TS _ 8) }
+  '='     { PT _ (TS _ 5) }
+  '\\'    { PT _ (TS _ 6) }
+  '\\!'   { PT _ (TS _ 7) }
   L_Ident { PT _ (TV $$)  }
 
 %%
 
 Ident :: { AbsLL.Ident }
 Ident  : L_Ident { AbsLL.Ident $1 }
-
-Program :: { AbsLL.Program }
-Program : ListDef { AbsLL.Program $1 }
-
-ListDef :: { [AbsLL.Def] }
-ListDef
-  : {- empty -} { [] }
-  | Def { (:[]) $1 }
-  | Def ';;' ListDef { (:) $1 $3 }
 
 Def :: { AbsLL.Def }
 Def : Ident '=' Term { AbsLL.Def $1 $3 }

@@ -14,7 +14,7 @@ ALEX_OPTS  = --ghc
 
 # Default goal.
 
-all : TestLL
+all : TestLL Main
 
 # Rules for building the parser.
 
@@ -28,6 +28,9 @@ AbsLL.hs LexLL.x ParLL.y PrintLL.hs TestLL.hs : LL.cf
 	${ALEX} ${ALEX_OPTS} $<
 
 TestLL : AbsLL.hs LexLL.hs ParLL.hs PrintLL.hs TestLL.hs
+	${GHC} ${GHC_OPTS} $@
+
+Main : AbsLL.hs LexLL.hs ParLL.hs PrintLL.hs Main.hs Reduce.hs Env.hs
 	${GHC} ${GHC_OPTS} $@
 
 # Rules for cleaning generated files.

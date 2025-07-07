@@ -140,15 +140,6 @@ instance Print Double where
 
 instance Print AbsLL.Ident where
   prt _ (AbsLL.Ident i) = doc $ showString i
-instance Print AbsLL.Program where
-  prt i = \case
-    AbsLL.Program defs -> prPrec i 0 (concatD [prt 0 defs])
-
-instance Print [AbsLL.Def] where
-  prt _ [] = concatD []
-  prt _ [x] = concatD [prt 0 x]
-  prt _ (x:xs) = concatD [prt 0 x, doc (showString ";;"), prt 0 xs]
-
 instance Print AbsLL.Def where
   prt i = \case
     AbsLL.Def id_ term -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), prt 0 term])

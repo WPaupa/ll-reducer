@@ -1,7 +1,4 @@
-entrypoints Program ;
-
-Program. Program ::= [ Def ] ;
-separator Def ";;" ;
+entrypoints Def ;
 
 Def. Def ::= Ident "=" Term ;
 

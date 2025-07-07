@@ -10,9 +10,6 @@ import Prelude (String)
 import qualified Prelude as C (Eq, Ord, Show, Read)
 import qualified Data.String
 
-data Program = Program [Def]
-  deriving (C.Eq, C.Ord, C.Show, C.Read)
-
 data Def = Def Ident Term
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 

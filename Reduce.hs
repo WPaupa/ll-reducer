@@ -41,3 +41,17 @@ stepReduce (TApp n m) = do
         return $ TApp n' m'
     else
         return $ TApp n' m
+
+reduceKeypress :: Term -> IO Term 
+reduceKeypress t = do
+    t' <- stepReduce t
+    putStrLn $ "Current term: " ++ printTree t'
+    if t' == t then do
+        putStrLn "No further reductions to make, waiting for more declarations..."
+        return t
+    else do
+        getChar
+        reduceKeypress t'
+
+insertEnv :: Term -> Env -> Term
+insertEnv = foldrWithKey (\x m n -> replace m x n)

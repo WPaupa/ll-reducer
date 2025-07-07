@@ -19,10 +19,6 @@ transIdent :: AbsLL.Ident -> Result
 transIdent x = case x of
   AbsLL.Ident string -> failure x
 
-transProgram :: AbsLL.Program -> Result
-transProgram x = case x of
-  AbsLL.Program defs -> failure x
-
 transDef :: AbsLL.Def -> Result
 transDef x = case x of
   AbsLL.Def ident term -> failure x
