@@ -2,7 +2,7 @@ module Main where
 
 import System.Environment ( getArgs )
 import System.Exit        ( exitFailure )
-import Control.Monad      ( when )
+import Control.Monad      ( when, unless )
 import System.IO
 import Data.Map ( insert, empty )
 
@@ -13,6 +13,7 @@ import ParLL   ( pDef, myLexer )
 import PrintLL ( Print, printTree )
 import SkelLL  ()
 import Reduce
+import CheckWellFormedness
 
 type Err        = Either String
 type ParseFun a = [Token] -> Err a
@@ -32,11 +33,13 @@ run env v p s =
       return env
     Right (Def name tree) -> do
       let tree' = insertEnv tree env
-      putStrLn $ "Replaced declarations: " ++ printTree tree 
-      hSetBuffering stdin NoBuffering
-      tree'' <- reduceKeypress tree'
-      hSetBuffering stdin LineBuffering
-      return $ insert name tree'' env
+      cwf <- check tree'
+      if not cwf then return env else do
+        putStrLn $ "Replaced declarations: " ++ printTree tree 
+        hSetBuffering stdin NoBuffering
+        tree'' <- reduceKeypress tree'
+        hSetBuffering stdin LineBuffering
+        return $ insert name tree'' env
   where
   ts = myLexer s
   showPosToken ((l,c),t) = concat [ show l, ":", show c, "\t", show t ]

@@ -30,7 +30,7 @@ AbsLL.hs LexLL.x ParLL.y PrintLL.hs TestLL.hs : LL.cf
 TestLL : AbsLL.hs LexLL.hs ParLL.hs PrintLL.hs TestLL.hs
 	${GHC} ${GHC_OPTS} $@
 
-Main : AbsLL.hs LexLL.hs ParLL.hs PrintLL.hs Main.hs Reduce.hs Env.hs
+Main : AbsLL.hs LexLL.hs ParLL.hs PrintLL.hs Main.hs Reduce.hs Env.hs CheckWellFormedness.hs
 	${GHC} ${GHC_OPTS} $@
 
 # Rules for cleaning generated files.
