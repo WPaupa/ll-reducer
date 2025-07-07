@@ -42,10 +42,11 @@ All other symbols are terminals.
   | //Term// | -> | ``\`` //Ident// ``.`` //Term//
   |  |  **|**  | ``\!`` //Ident// ``.`` //Term//
   |  |  **|**  | //Term1//
-  | //Term1// | -> | //Ident//
-  |  |  **|**  | ``!`` //Term1//
-  |  |  **|**  | //Term// //Term1//
+  | //Term2// | -> | //Ident//
   |  |  **|**  | ``(`` //Term// ``)``
+  | //Term1// | -> | ``!`` //Term2//
+  |  |  **|**  | //Term1// //Term2//
+  |  |  **|**  | //Term2//
 
 
 

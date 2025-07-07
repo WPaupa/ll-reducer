@@ -46,12 +46,14 @@ Term
   | '\\!' Ident '.' Term { AbsLL.TLamBang $2 $4 }
   | Term1 { $1 }
 
+Term2 :: { AbsLL.Term }
+Term2 : Ident { AbsLL.TVar $1 } | '(' Term ')' { $2 }
+
 Term1 :: { AbsLL.Term }
 Term1
-  : Ident { AbsLL.TVar $1 }
-  | '!' Term1 { AbsLL.TBang $2 }
-  | Term Term1 { AbsLL.TApp $1 $2 }
-  | '(' Term ')' { $2 }
+  : '!' Term2 { AbsLL.TBang $2 }
+  | Term1 Term2 { AbsLL.TApp $1 $2 }
+  | Term2 { $1 }
 
 {
 

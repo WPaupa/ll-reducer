@@ -148,6 +148,6 @@ instance Print AbsLL.Term where
   prt i = \case
     AbsLL.TLambda id_ term -> prPrec i 0 (concatD [doc (showString "\\"), prt 0 id_, doc (showString "."), prt 0 term])
     AbsLL.TLamBang id_ term -> prPrec i 0 (concatD [doc (showString "\\!"), prt 0 id_, doc (showString "."), prt 0 term])
-    AbsLL.TVar id_ -> prPrec i 1 (concatD [prt 0 id_])
-    AbsLL.TBang term -> prPrec i 1 (concatD [doc (showString "!"), prt 1 term])
-    AbsLL.TApp term1 term2 -> prPrec i 1 (concatD [prt 0 term1, prt 1 term2])
+    AbsLL.TVar id_ -> prPrec i 2 (concatD [prt 0 id_])
+    AbsLL.TBang term -> prPrec i 1 (concatD [doc (showString "!"), prt 2 term])
+    AbsLL.TApp term1 term2 -> prPrec i 1 (concatD [prt 1 term1, prt 2 term2])

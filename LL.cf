@@ -4,8 +4,8 @@ Def. Def ::= Ident "=" Term ;
 
 TLambda. Term ::= "\\" Ident "." Term ;
 TLamBang. Term ::= "\\!" Ident "." Term ;
-TVar. Term1 ::= Ident ;
-TBang. Term1 ::= "!" Term1 ;
-TApp. Term1 ::= Term Term1 ;
+TVar. Term2 ::= Ident ;
+TBang. Term1 ::= "!" Term2 ;
+TApp. Term1 ::= Term1 Term2 ;
 
-coercions Term 1 ;
+coercions Term 2 ;
