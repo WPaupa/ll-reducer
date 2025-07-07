@@ -28,7 +28,7 @@ hasnonones x (TLambda y t) =
     if x == y then False else hasnonones x t
 hasnonones x (TLamBang y t) =
     if x == y then False else hasnonones x t
-hasnonones x (TVar y) = True
+hasnonones x (TVar y) = x == y
 hasnonones x (TBang t) = hasnonzeros x t
 hasnonones x (TApp t1 t2) = hasnonones x t1 || hasnonones x t2
 
